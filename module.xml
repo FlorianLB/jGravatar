@@ -10,6 +10,6 @@
         <homepageURL>http://andromedecreations.fr</homepageURL>
     </info>
     <dependencies>
-        <jelix minversion="1.2" maxversion="1.*"/>
+        <jelix minversion="1.2b1" maxversion="1.*"/>
     </dependencies>
 </module>
