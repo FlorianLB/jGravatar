@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://jelix.org/ns/module/1.0">
+    <info id="jGravatar" name="jGravatar" createdate="2010-10-09">
+        <version stability="beta" date="">1.0b</version>
+        <label lang="en_EN">jGravatar</label>
+        <description lang="en_EN" />
+        <license URL="">MIT</license>
+        <copyright>2010 Florian Lonqueu-Brochard</copyright>
+        <creator name="Florian Lonqueu-Brochard" email="contact@andromedecreations.fr" active="true"/>
+        <homepageURL>http://andromedecreations.fr</homepageURL>
+    </info>
+    <dependencies>
+        <jelix minversion="1.2" maxversion="1.*"/>
+    </dependencies>
+</module>
