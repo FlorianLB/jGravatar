@@ -182,7 +182,7 @@ class jGravatar{
   * @author Florian Lonqueu-Brochard
   * @static
   */
-  public static function get($email, $gravatar_rating = null, $gravatar_size = null, $alt_text = ''){
+  public static function get($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = ''){
     $gravatar = new jGravatar($gravatar_rating, $gravatar_size);
     // return the gravatar image
 
@@ -201,8 +201,8 @@ class jGravatar{
   * @author Florian Lonqueu-Brochard
   * @static
   */
-  public static function display($email, $gravatar_rating = null, $gravatar_size = null, $alt_text = ''){
-    print self::get($email, $gravatar_rating, $gravatar_size, $alt_text);
+  public static function display($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = ''){
+    print self::get($email, $gravatar_size, $gravatar_rating, $alt_text);
   }
   
 }
