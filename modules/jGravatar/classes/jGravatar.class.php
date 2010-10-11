@@ -39,10 +39,9 @@ class jGravatar{
   * @author Florian Lonqueu-Brochard
   *
   **/
-  public function __construct($image_size = null, $rating = null)
-  {
+  public function __construct ($image_size = null, $rating = null) {
 
-    if( self::$initialized == false ){
+    if (self::$initialized == false) {
     
       $config = jIniFile::read(JELIX_APP_CONFIG_PATH.'defaultconfig.ini.php');
   
@@ -74,8 +73,8 @@ class jGravatar{
    * @return String
    * @author Mickael Kurmann
    **/
-  protected function buildGravatarPath($md5_email)
-  {
+  protected function buildGravatarPath($md5_email){
+    
     return self::$base_url.'/avatar.php?gravatar_id='.$md5_email.
                            '&size='.$this->image_size.
                            '&rating='.$this->rating.
@@ -88,8 +87,8 @@ class jGravatar{
    * @return boolean
    * @author Mickael Kurmann
    **/
-  protected function hasGravatar($md5_email)
-  {
+  protected function hasGravatar ($md5_email) {
+    
     // TODO try cache !
     $ch = curl_init($this->buildGravatarPath($md5_email));
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
@@ -105,9 +104,7 @@ class jGravatar{
 
     // 200 == page with no error, else 301 == redirect (no gravatar) or 404... or whatever
     if ($session_code == 200)
-    {
       return true;
-    }
 
     return false;
   }
@@ -118,8 +115,7 @@ class jGravatar{
    * @return void
    * @author Mickael Kurmann
    **/
-  protected function isCacheValid($file_path)
-  {
+  protected function isCacheValid ($file_path) {
     if (file_exists($file_path))
     {
       if (filectime($file_path) < strtotime("+".self::$expire_ago))
@@ -140,8 +136,7 @@ class jGravatar{
 
   // get the gravatar to the cache, if email has a gravatar and it does not
   // already exist (or has expired)
-  public function getGravatar($email)
-  {
+  public function getGravatar ($email) {
     $md5_email = md5( strtolower( trim( $email ) ) );
     $file = self::$cache_dir.$md5_email.'.png';
 
@@ -182,7 +177,7 @@ class jGravatar{
   * @author Florian Lonqueu-Brochard
   * @static
   */
-  public static function get($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = ''){
+  public static function get ($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = '') {
     $gravatar = new jGravatar($gravatar_rating, $gravatar_size);
     // return the gravatar image
 
@@ -201,7 +196,7 @@ class jGravatar{
   * @author Florian Lonqueu-Brochard
   * @static
   */
-  public static function display($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = ''){
+  public static function display ($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = '') {
     print self::get($email, $gravatar_size, $gravatar_rating, $alt_text);
   }
   

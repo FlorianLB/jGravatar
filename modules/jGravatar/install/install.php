@@ -16,14 +16,31 @@ class jGravatarModuleInstaller extends jInstallerModule {
 
     function install() {
 
-          $conf = $this->config->getMaster();
+        $conf = $this->config->getMaster();
 
-          $conf->setValue('jGravatar.access', '1', 'modules');
+        $access = $conf->getValue('jGravatar.access', 'module');
+        
+        if ($access == null)
+            $conf->setValue('jGravatar.access', '1', 'modules');
+        elseif ($access != 1){
+            $conf->removeValue('jGravatar.access', 'modules');
+            $conf->setValue('jGravatar.access', '1', 'modules');
+        }
 
-          //$conf->setValue('; relative to the www path', '', 'jGravatar');
-          $conf->setValue('cache_dir', 'uploads/jGravatar/', 'jGravatar');
-          $conf->setValue('expire_ago', '3 days', 'jGravatar');
-          $conf->setValue('default_image', 'gravatar_default.png', 'jGravatar');
-          $conf->save();
+        //cache_dir parameter
+        if ($conf->getValue('cache_dir', 'jGravatar') == null){
+            $conf->setValue('; relative to the www path', '', 'jGravatar');
+            $conf->setValue('cache_dir', 'uploads/jGravatar/', 'jGravatar');
+        }
+        
+        //expire_ago parameter
+        if ($conf->getValue('expire_ago', 'jGravatar') == null)
+            $conf->setValue('expire_ago', '3 days', 'jGravatar');
+        
+        //default_image parameter
+        if ($conf->getValue('default_image', 'jGravatar') == null)
+            $conf->setValue('default_image', 'gravatar_default.png', 'jGravatar');
+        
+        $conf->save();
     }
 }
