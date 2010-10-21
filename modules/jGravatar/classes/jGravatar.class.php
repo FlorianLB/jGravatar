@@ -48,7 +48,11 @@ class jGravatar{
       self::$cache_dir = JELIX_APP_WWW_PATH.$config['jGravatar']['cache_dir'];
       self::$cache_dir_name = $GLOBALS['gJConfig']->urlengine['basePath'].$config['jGravatar']['cache_dir'];
       self::$default_image = $config['jGravatar']['default_image'];
+
       self::$expire_ago = $config['jGravatar']['expire_ago'];
+      if(!is_numeric(self::$expire_ago)){
+        self::$expire_ago = strtotime("+".self::$expire_ago) - time();
+      }
       
       self::$initialized = true;
     }
@@ -113,25 +117,22 @@ class jGravatar{
    * check for a cache hit - if found check if file is within expiry time
    *
    * @return void
-   * @author Mickael Kurmann
+   * @Florian Lonqueu-Brochard
    **/
-  protected function isCacheValid ($file_path) {
-    if (file_exists($file_path))
-    {
-      if (filectime($file_path) < strtotime("+".self::$expire_ago))
-      {
-        // file exists and cache is valid
-        return true;
-      }
-      else
-      {
-        // file exists but cache has expired
-        unlink($file_path);
-      }
-    }
+  protected static function isCacheValid ($file_path) {
+    if (file_exists($file_path)) {
 
-    // no file
-    return false;
+        if ( (filectime($file_path) + self::$expire_ago) > time()) {
+          // file exists and cache is valid
+          return true;
+        }
+        else {
+          // file exists but cache has expired
+          unlink($file_path);
+        }
+    }
+      // no file
+      return false;
   }
 
   // get the gravatar to the cache, if email has a gravatar and it does not
