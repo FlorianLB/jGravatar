@@ -179,7 +179,7 @@ class jGravatar{
   * @static
   */
   public static function get ($email, $gravatar_size = null, $gravatar_rating = null, $alt_text = '') {
-    $gravatar = new jGravatar($gravatar_rating, $gravatar_size);
+    $gravatar = new jGravatar($gravatar_size , $gravatar_rating);
     // return the gravatar image
 
     $class = self::$default_className ? 'class ="'.self::$default_className.'"' : '';
